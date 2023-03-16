@@ -3,7 +3,7 @@
   <header class="page-header">
     <h1>My Cart</h1>
   </header>
-
+  <% if enhanced_cart.any? %>
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -17,7 +17,7 @@
       <tbody>
         <% enhanced_cart.each do |item| %>
           <%= render 'item', product: item[:product], quantity: item[:quantity].to_i %>
-        <% end %>
+        <% end %>   
       </tbody>
       <tfoot>
         <tr>
@@ -48,5 +48,10 @@
       <% end %>
     </div>
   </div>
+  <% else %>
+    <div class="alert alert-warning mb-4">
+      Your cart is empty. Return to <a class="alert-link" href="<%= root_path %>">Jungle homepage</a>.
+    </div>
+  <% end %>
 
 </section>
