@@ -1,25 +1,29 @@
+<section class="register">
+  <header class="page-header">
+    <h1>Signup!</h1>
+  </header>
+  <div class="register-form">
+    <%= form_for :user, url: '/users' do |form| %>
 
-<h1>Signup!</h1>
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name, class: 'form-control' %>
 
-<%= form_for :user, url: '/users' do |form| %>
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name, class: 'form-control' %>
 
-  <%= form.label :first_name %>
-  <%= form.text_field :first_name, class: 'form-control' %>
+      <%= form.label :email %>
+      <%= form.text_field :email, class: 'form-control' %>  
 
-  <%= form.label :last_name %>
-  <%= form.text_field :last_name, class: 'form-control' %>
+      <%= form.label :password %> 
+      <%= form.password_field :password, class: 'form-control' %>
 
-  <%= form.label :email %>
-  <%= form.text_field :email, class: 'form-control' %>  
+      <%= form.label :password_confirmation %> 
+      <%= form.password_field :password_confirmation, class: 'form-control' %>
+      
+      <div class="my-4">
+        <%= form.submit "Submit", class: 'btn btn-primary' %>
+      </div?
 
-  <%= form.label :password %> 
-  <%= form.password_field :password, class: 'form-control' %>
-
-  <%= form.label :password_confirmation %> 
-  <%= form.password_field :password_confirmation, class: 'form-control' %>
-  
-  <div class="my-4">
-  <%= form.submit "Submit", class: 'btn btn-primary' %>
-  </div?
-
-<% end %>
+    <% end %>
+  </div>
+</section>

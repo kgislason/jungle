@@ -1,10 +1,16 @@
-
-<h1>Login</h1>
-
-<%= form_tag '/login' do %>
-
-  Email: <%= text_field_tag :email %>
-  Password: <%= password_field_tag :password %>
-  <%= submit_tag "Submit" %>
-
-<% end %>
+<section class="login">
+  <header class="page-header">
+    <h1>Login</h1>
+  </header>
+  <div class="login-form">
+    <%= form_tag '/login' do %>
+      <%= label :email, 'Email' %> 
+      <%= text_field_tag :email, '', class: 'form-control' %>
+      <%= label :password, 'Password' %>
+      <%= password_field_tag :password, '', class: 'form-control' %>
+      <div class="my-4">
+        <%= submit_tag "Login" %>
+      </div>
+    <% end %>
+  </div>
+</section>
