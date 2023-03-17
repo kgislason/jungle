@@ -1,29 +1,46 @@
 <section class="register">
-  <header class="page-header">
-    <h1>Signup!</h1>
-  </header>
-  <div class="register-form">
-    <%= form_for :user, url: '/users' do |form| %>
+  <div class="register-form mt-5">
+  <div class="card col-12 col-md-6 offset-md-3">
+      <div class="card-header">
+        <h1 class="h4 mb-0">Sign Up</h1>
+      </div>
+      <div class="card-body">
+        <%= form_for [:user, @user], url: '/users' do |form| %>
+          <% if form.object.errors.any? %>
+            <div class="alert alert-danger">
+              <strong>The following errors prevented saving:</strong>
+              <ul>
+                <% form.object.errors.full_messages.each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-      <%= form.label :first_name %>
-      <%= form.text_field :first_name, class: 'form-control' %>
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <%= form.label :first_name %>
+              <%= form.text_field :first_name, class: 'form-control' %>
+            </div>
+            <div class="col-12 col-sm-6">
+              <%= form.label :last_name %>
+              <%= form.text_field :last_name, class: 'form-control' %>
+            </div>
+          </div>
+          <%= form.label :email %>
+          <%= form.text_field :email, class: 'form-control' %>  
 
-      <%= form.label :last_name %>
-      <%= form.text_field :last_name, class: 'form-control' %>
+          <%= form.label :password %> 
+          <%= form.password_field :password, class: 'form-control' %>
 
-      <%= form.label :email %>
-      <%= form.text_field :email, class: 'form-control' %>  
-
-      <%= form.label :password %> 
-      <%= form.password_field :password, class: 'form-control' %>
-
-      <%= form.label :password_confirmation %> 
-      <%= form.password_field :password_confirmation, class: 'form-control' %>
-      
-      <div class="my-4">
-        <%= form.submit "Submit", class: 'btn btn-primary' %>
-      </div?
-
-    <% end %>
+          <%= form.label :password_confirmation %> 
+          <%= form.password_field :password_confirmation, class: 'form-control' %>
+          
+          <div class="my-4">
+            <%= form.submit "Submit", class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </section>
