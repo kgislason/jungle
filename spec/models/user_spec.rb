@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   describe '#id' do
-    it 'should not exist for new records' do
+    it 'Should not exist for new records' do
       @user = User.new
       expect(@user.id).to be_nil
     end   
   end
 
   describe 'Validations' do
-    it 'should save user if all required fields are present' do
+    it 'Should save new user if all required fields are present' do
       @user = User.new(        
         first_name: "Test",
         last_name: "Last",
@@ -23,43 +23,57 @@ RSpec.describe User, type: :model do
       expect(@user.id).to be_present
     end
 
-    it 'Password and password_confirmation should match' do
-      @user = User.new(        
-        first_name: "Test",
-        last_name: "Last",
-        email: "kristy@mailinator.com",
-        password: "123456",
-        password_confirmation: "12345"
-      )
-      expect(@user.valid?).to be false
-      expect(@user.errors.full_messages.include? "Password confirmation doesn't match Password").to be true
+    describe 'Password' do
+      it 'Password and password_confirmation should match' do
+        @user = User.new(        
+          first_name: "Test",
+          last_name: "Last",
+          email: "kristy@mailinator.com",
+          password: "123456",
+          password_confirmation: "12345"
+        )
+        expect(@user.valid?).to be false
+        expect(@user.errors.full_messages.include? "Password confirmation doesn't match Password").to be true
+      end
+
+      it 'Password should not be nil' do
+        @user = User.new(        
+          first_name: "Test",
+          last_name: "Last",
+          email: "kristy@mailinator.com",
+          password: nil,
+          password_confirmation: "12345"
+        )
+        expect(@user.valid?).to be false
+        expect(@user.errors.full_messages.include? "Password can't be blank").to be true
+      end
+
+      it 'Password_confirmation should not be nil' do
+        @user = User.new(        
+          first_name: "Test",
+          last_name: "Last",
+          email: "kristy@mailinator.com",
+          password: "12345",
+          password_confirmation: nil
+        )
+        expect(@user.valid?).to be false
+        expect(@user.errors.full_messages.include? "Password confirmation can't be blank").to be true
+      end
+
+      it 'should be a minimum of 3 characters' do
+        @user = User.new(        
+          first_name: "Test",
+          last_name: "Last",
+          email: "kristy@mailinator.com",
+          password: "12",
+          password_confirmation: "12"
+        )
+        expect(@user.valid?).to be false
+        expect(@user.errors.full_messages.include? "Password is too short (minimum is 3 characters)").to be true
+      end
     end
 
-    it 'Password is not nil' do
-      @user = User.new(        
-        first_name: "Test",
-        last_name: "Last",
-        email: "kristy@mailinator.com",
-        password: nil,
-        password_confirmation: "12345"
-      )
-      expect(@user.valid?).to be false
-      expect(@user.errors.full_messages.include? "Password can't be blank").to be true
-    end
-
-    it 'Password_confirmation is not nil' do
-      @user = User.new(        
-        first_name: "Test",
-        last_name: "Last",
-        email: "kristy@mailinator.com",
-        password: "12345",
-        password_confirmation: nil
-      )
-      expect(@user.valid?).to be false
-      expect(@user.errors.full_messages.include? "Password confirmation can't be blank").to be true
-    end
-
-    it 'User email is not nil' do
+    it 'User email should not be nil' do
       @user = User.new(        
         first_name: "Test",
         last_name: "Last",
@@ -81,7 +95,7 @@ RSpec.describe User, type: :model do
       )
     }
 
-    it 'Should validate uniqueness of email' do
+    it 'Email should be unique' do
       @user2 = User.create(
         first_name: "Second",
         last_name: "Last",
@@ -93,7 +107,7 @@ RSpec.describe User, type: :model do
       expect(@user2.errors.full_messages.include? "Email has already been taken").to be true
     end
 
-    it 'User first name is not nil' do
+    it 'User first name should not be nil' do
       @user = User.new(        
         first_name: nil,
         last_name: "Last",
@@ -105,7 +119,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages.include? "First name can't be blank").to be true
     end
 
-    it 'User last name is not nil' do
+    it 'User last name should not be nil' do
       @user = User.new(        
         first_name: "Test",
         last_name: nil,
