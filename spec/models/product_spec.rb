@@ -9,7 +9,7 @@ RSpec.describe Product, type: :model do
     end
 
     describe 'Validations' do
-      it 'should save product if all equired fields are present' do
+      it 'should save product if all required fields are present' do
         @category = Category.new(name: "Test Category")
         @product = Product.new(
           name: "Test Product",
