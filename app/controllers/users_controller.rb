@@ -5,11 +5,11 @@ class UsersController < ApplicationController
   end
 
   def create
+    user_params[:email].downcase!.strip!
     @user = User.new(user_params)
 
-    user = User.new(user_params)
     if @user.save
-      session[:user_id] = user.id
+      session[:user_id] = @user.id
       redirect_to [:root], notice: 'User created!'
     else
       render :new

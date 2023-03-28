@@ -133,5 +133,65 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe '.authenticate_with_credentials' do
+    
+    it "Should return the user object if email and password match" do
+      @user = User.new(        
+        first_name: "Test",
+        last_name: "Last Name",
+        email: "kristy@mailinator.com",
+        password: "12345",
+        password_confirmation: "12345"
+      )
+      @user.save!
+
+      @session = User.authenticate_with_credentials("kristy@mailinator.com", "12345")
+
+      expect(@session.email).to eq(@user.email)
+    end
+
+    it "Should return nil if email and password do not match" do
+      @user = User.new(        
+        first_name: "Test",
+        last_name: "Last Name",
+        email: "kristy@mailinator.com",
+        password: "12345",
+        password_confirmation: "12345"
+      )
+      @user.save!
+
+      @session = User.authenticate_with_credentials("kristy@mailinator.com", "54321")
+
+      expect(@session).to eq(nil)
+    end
+
+    it "Should return the user object if the email has white space" do
+      @user = User.new(        
+        first_name: "Test",
+        last_name: "Last Name",
+        email: "kristy@mailinator.com",
+        password: "12345",
+        password_confirmation: "12345"
+      )
+      @user.save!
+
+      @session = User.authenticate_with_credentials("    kristy@mailinator.com    ", "12345")
+      expect(@session.email).to eq(@user.email)
+    end
+
+    it "Should return the user object if the email has upper or lowercase letters" do
+      @user = User.new(        
+        first_name: "Test",
+        last_name: "Last Name",
+        email: "kristy@mailinator.com",
+        password: "12345",
+        password_confirmation: "12345"
+      )
+      @user.save!
+      @session = User.authenticate_with_credentials("KRISTY@mailinator.com", "12345")
+      expect(@session.email).to eq(@user.email)
+    end
+  end
+
 
 end
