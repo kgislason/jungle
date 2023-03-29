@@ -127,7 +127,7 @@ RSpec.describe User, type: :model do
         password: "12345",
         password_confirmation: "12345"
       )
-      expect(@user.valid?).to be false
+      expect(@user).to_not be_valid
       expect(@user.errors.full_messages.include? "Last name can't be blank").to be true
     end
 
