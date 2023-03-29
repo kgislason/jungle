@@ -13,6 +13,10 @@ A mini e-commerce application built with Rails 6.1 for purposes of teaching Rail
 7. Put Stripe (test) keys into appropriate .env vars
 8. Run `bin/rails s -b 0.0.0.0` to start the server
 
+
+## Test Mode
+Run `bin/rails s -b 0.0.0.0` -e test
+
 ## Database
 
 If Rails is complaining about authentication to the database, uncomment the user and password fields from `config/database.yml` in the development and test sections, and replace if necessary the user and password `development` to an existing database user.
@@ -29,3 +33,12 @@ More information in their docs: <https://stripe.com/docs/testing#cards>
 - Bootstrap 5
 - PostgreSQL 9.x
 - Stripe
+
+
+## Cypress
+
+For M1 & WSL
+`bin/rails cypress:open`
+
+For Vagrant
+`bin/rails cypress:run`
